@@ -113,6 +113,16 @@ list3m = {'abcde':list31, 'fghij':list32, 'klmno':list33, 'pqrst':list34, 'uvwxy
 list4m = {'ab':list41, 'cd':list42, 'ef':list43, 'gh':list44, 'ij':list45, 'kl':list46, 'mn':list47, 'op':list48, 'qr':list49, 'st':list410, 'uv':list411, 'wx':list412, 'yz':list413}
 dict_main = {2: list2m, 3: list3m, 4: list4m}
 
+list_highscore = []
+file_name = 'high_score.txt'
+with open(file_name, 'r') as file_obj:
+    for i in file_obj.readlines():
+        full_data = (i.strip('\n'))
+        high_score = int(full_data[38:40])
+        list_highscore.append(high_score)
+print("for now the highest score is",high_score)
+#print(list_highscore)
+
 
 totalscore =0
 def scorcingsystem(w):
@@ -164,7 +174,7 @@ letter = []
 for i in range(8):
     n = random.randint(0,25)
     letter += list_az[n]
-    letter = "yardyard"
+    #letter = "yardyard"
 
 
 def run_game():
@@ -182,8 +192,10 @@ def run_game():
 
 def game_over():
     print("gameover,you total score is",totalscore)
-    file_name = 'high_score.txt'
-    with open(file_name, 'a') as file_obj:
-        file_obj.writelines(str(datetime.datetime.now())+" totalscore "+str(totalscore)+"\n")
+    if totalscore > high_score:
+        file_name = 'high_score.txt'
+        with open(file_name, 'a') as file_obj:
+            file_obj.writelines(str(datetime.datetime.now())+" totalscore "+str(totalscore)+"\n")
+        print("the highest score is saved")
 
 run_game()
